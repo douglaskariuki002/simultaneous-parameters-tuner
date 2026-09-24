@@ -3,12 +3,12 @@ import { select } from 'd3-selection';
 
 function DataPoints({ groupRef, data, xScale, yScale }) {
   useEffect(() => {
-    if (!groupRef?.current || !data?.length) {
-      return;
-    }
+    if (!groupRef?.current) return;
 
     const group = select(groupRef.current);
     group.selectAll('.data-points').remove();
+
+    if (!data?.length) return;
 
     const pointLayer = group.append('g').attr('class', 'data-points');
 
