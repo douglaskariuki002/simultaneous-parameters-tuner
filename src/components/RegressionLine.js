@@ -3,9 +3,7 @@ import { select } from 'd3-selection';
 
 function RegressionLine({ groupRef, slope, intercept, xScale, yScale, extent }) {
   useEffect(() => {
-    if (!groupRef?.current) {
-      return;
-    }
+    if (!groupRef?.current) return;
 
     const group = select(groupRef.current);
     group.selectAll('.regression-line').remove();

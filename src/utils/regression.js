@@ -11,6 +11,38 @@ export function calculateMse(data, slope, intercept) {
   return totalError / data.length;
 }
 
+export function getKeysFromData(rawData) {
+  if (!rawData || rawData.length === 0) return [];
+  return Object.keys(rawData[0]);
+}
+
+export function mapRawToPoints(rawData, xKey, yKey) {
+  if (!rawData || !xKey || !yKey) return [];
+
+  return rawData
+    .map((d) => {
+      const x = parseFloat(d[xKey]);
+      const y = parseFloat(d[yKey]);
+      return { x, y };
+    })
+    .filter((p) => Number.isFinite(p.x) && Number.isFinite(p.y));
+}
+
+export function parseCsv(text) {
+  const lines = text.split(/\r?\n/).filter(Boolean);
+  if (lines.length === 0) return [];
+
+  const header = lines[0].split(',').map((h) => h.trim());
+  return lines.slice(1).map((line) => {
+    const cols = line.split(',');
+    const obj = {};
+    header.forEach((key, i) => {
+      obj[key] = cols[i] ? cols[i].trim() : '';
+    });
+    return obj;
+  });
+}
+
 export function formatEquation(slope, intercept) {
   const slopeLabel = slope.toFixed(2);
   const interceptLabel = Math.abs(intercept).toFixed(2);

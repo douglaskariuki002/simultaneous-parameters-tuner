@@ -6,7 +6,7 @@ import Axes from './Axes';
 import DataPoints from './DataPoints';
 import RegressionLine from './RegressionLine';
 
-function ScatterPlot({ data, slope, intercept }) {
+function ScatterPlot({ data, slope, intercept, xLabel = 'X Value', yLabel = 'Y Value' }) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const groupRef = useRef();
@@ -61,7 +61,7 @@ function ScatterPlot({ data, slope, intercept }) {
   return (
     <div ref={wrapperRef} style={{ width: '100%', height: '500px' }}>
       <svg ref={svgRef}></svg>
-      <Axes groupRef={groupRef} xScale={xScale} yScale={yScale} width={width} height={height} />
+      <Axes groupRef={groupRef} xScale={xScale} yScale={yScale} width={width} height={height} xLabel={xLabel} yLabel={yLabel} />
       <DataPoints groupRef={groupRef} data={data} xScale={xScale} yScale={yScale} />
       <RegressionLine groupRef={groupRef} slope={slope} intercept={intercept} xScale={xScale} yScale={yScale} extent={extent} />
     </div>
